@@ -63,7 +63,7 @@ local function font (effects, b)
   effects = type(effects) == 'table' and effects or {effects}
   local start_codes, stop_codes = List{}, List{}
   for _, effect in ipairs(effects) do
-    local start, cancel = unpack(font_effects[effect])
+    local start, stop = unpack(font_effects[effect])
     start_codes:insert(start)
     stop_codes:insert(stop)
   end
@@ -121,7 +121,7 @@ Writer.Block.Header = function(h, opts)
       opts.columns
     )
   else
-    return font('bold', inliness(h.content))
+    return font('bold', inlines(h.content))
   end
 end
 

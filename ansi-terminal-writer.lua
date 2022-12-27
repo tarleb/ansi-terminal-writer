@@ -1,4 +1,7 @@
 --- Pandoc writer for ANSI terminals.
+-- This writer uses new features added in pandoc 3, including writer
+-- scaffolding and custom writer extensions.
+PANDOC_VERSION:must_be_at_least '3.0'
 
 local unpack = unpack or table.unpack
 local format = string.format

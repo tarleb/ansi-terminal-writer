@@ -52,6 +52,7 @@ local font_effects = setmetatable(
     underline  = {'4', '24'},
     underlined = {'4', '24'},
     blink      = {'5', '25'},
+    inverse    = {'7', '27'},
     strikeout  = {'9', '29'},
   },
   {
@@ -113,14 +114,18 @@ Writer.Block.Header = function(h, opts)
   local texts
   if h.level <= 1 then
     return cblock(
-      concat { "[1;7m ", inlines(h.content), " [0m" },
+      font({'bold', 'underline'}, inlines(h.content)),
       opts.columns
     )
   elseif h.level <= 2 then
     return cblock(
-      font({'bold', 'underline'}, inlines(h.content)),
+      font({'bold'}, inlines(h.content)),
       opts.columns
     )
+  elseif h.level <= 3 then
+    return font({'bold', 'underline'}, inlines(h.content))
+  elseif h.level <= 4 then
+    return font('faint', inlines(h.content))
   else
     return font('bold', inlines(h.content))
   end

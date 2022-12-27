@@ -8,6 +8,7 @@ local empty, cr, concat, blankline, space =
 local cblock, rblock, prefixed, nest, hang =
   layout.cblock, layout.rblock, layout.prefixed, layout.nest, layout.hang
 local to_roman = pandoc.utils.to_roman_numeral
+local stringify = pandoc.utils.stringify
 local List = pandoc.List
 
 local footnotes = List{}
@@ -266,8 +267,16 @@ Writer.Inline.Span = function(span)
   return inlines(span.content)
 end
 
-Writer.Inline.Link = function(el)
-  return inlines(el.content .. {pandoc.Note(pandoc.Plain{el.target})})
+Writer.Inline.Link = function(link)
+  if link.target:match '^%#' then
+    -- drop internal links
+    return inlines(link.content)
+  elseif link.target == stringify(link.content) then
+    -- drop autolinks
+    return inlines(link.content)
+  else
+    return inlines(link.content .. {pandoc.Note(pandoc.Plain{link.target})})
+  end
 end
 
 Writer.Inline.Image = function(el)

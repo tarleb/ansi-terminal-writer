@@ -2,10 +2,10 @@
 
 A custom pandoc writer for ANSI terminals.
 
-> **Note**
+> [!IMPORTANT]
 >
-> This writer requires features that are currently only in pandoc's
-> development version. Use a nightly pandoc build to use this filter.
+> This writer was an experiement. Pandoc now ships with an ANSI writer
+> built-in.
 
 ## Extensions
 
